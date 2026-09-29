@@ -23,26 +23,39 @@ function runFunction() {
 // Exercice 1
 function exo1(limit) {
     "use strict";
-
-    var somme = 0;
-    for (var i = 0;i<limit;i++) {
-        
+    for (var i = 4; i<limit;i++) {
+        var diviseurs= [];
+        for (var n = 1;n<i;n++) {
+            if (i%n==0) {
+                diviseurs.push(n);
+            }
+        }
+        var somme = 0;
+        for (var n of diviseurs) {
+            somme = somme + parseInt(n);
+        }
+        if (somme == i ) {
+            window.console.log(i + "est un nombre parfait"); //alert fait un popup du coup je l'ai remplace par window.console.log
+        }
     }
+}
 
-}
-function divby(n,a) {
-    if (n%a==0) {
-        return true;
-    }
-    return false;
-}
 //////////////////////////////////////////////////////////////////////
 
 // Exercice 2
 function exo2_1() {
     "use strict";
-
+    window.console.log("Exercice 2.1");
     // TODO regarder le résultat des calculs de nombres
+    //F12 + console
+    window.console.log(Number("A")); //NAN
+    window.console.log(2 + "12"); //212
+    window.console.log(2 + (+"12")); //14
+    window.console.log((+"A")); //NaN
+    window.console.log(2 * "12"); //24
+    window.console.log(2 * "A"); //NaN
+    window.console.log(1/0); //Infinity
+    window.console.log(1/-0); //-Infinity
 }
 
 function exo2_2() {
@@ -50,6 +63,9 @@ function exo2_2() {
     window.console.log("Exercice 2.2");
 
     // TODO regarder le résultat des opérations avec NaN
+    window.console.log(NaN === NaN); //false
+    window.console.log(NaN !== NaN); //true
+    window.console.log(isNaN(NaN)); //true
 }
 
 function exo2_3() {
@@ -57,6 +73,8 @@ function exo2_3() {
     window.console.log("Exercice 2.3");
 
     // TODO regarder la valeur d'une variable non initialisée
+    var mavar;
+    window.console.log(mavar);//undefined
 }
 
 function exo2_4() {
@@ -65,6 +83,18 @@ function exo2_4() {
     window.console.log("Exercice 2.4");
 
     // TODO regarder la différence entre null et undefined
+    var x;
+    var y;
+    var xn = null;
+    var yn = null;
+    window.console.log(x===y); //true
+    window.console.log(x===yn); //false
+    window.console.log(xn===yn); //true
+
+    window.console.log(x==y); //true
+    window.console.log(x==yn); //true
+    window.console.log(xn==yn); //true
+
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -86,13 +116,20 @@ function exo3() {
     appendText("Exercice 3");
     var list = [1, 2, 4];
     // TODO camlListOfArray
+    appendText(camlListOfArray(list));
+
 
     var palindromes = ["", "a", "BB", "BOB", "ESOPERESTEICIETSEREPOSE"];
     var nonPalindromes = ["Bob", "BABA"];
-    // TODO estPalindrome
+    for (var i = 0;i<palindromes.length;i++) {
+        appendText(estPalindrome(palindromes.at(i).toString()));
+    }
+    for (var i = 0;i<nonPalindromes.length;i++) {
+        appendText(estPalindrome(nonPalindromes.at(i).toString()));
+    }
 
     var esop = "ESOPERESTEICIETSEREPOSE"
-    // TODO listeOccurrences
+    appendText(listeOccurrences("E",esop).toString());
 
     var testsEmail = ["a@b.fr", "john.doe@firm.co.uk", "somebody@domain"];
     // TODO estEmail
@@ -103,20 +140,35 @@ function exo3() {
 function camlListOfArray(tableau) {
     "use strict";
     // TODO
-    return "TODO";
+    var retour = "["+tableau.toString()+"]";
+    return retour;
 }
 
 function estPalindrome(texte) {
     "use strict";
-    // TODO
+    var i = 0;
+    for (var j = texte.length-1; i<j;j--) {
+        if (texte.charAt(i)!=texte.charAt(j)) {
+            return false;
+        }
+        i++
+    }
     return true;
 }
 
 function listeOccurrences(search, texte) {
     "use strict";
-    // TODO
-    return [];
+    var retour = [];
+
+    for (var i = 0; i < texte.length; i++) {
+        if (texte[i] === search) {
+            retour.push(i);
+        }
+    }
+
+    return retour;
 }
+
 
 function estEmail(texte) {
     "use strict";
