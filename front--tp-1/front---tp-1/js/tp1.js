@@ -183,7 +183,7 @@ function exo4() {
     "use strict";
     appendText("Exercice 4");
     // TODO
-    appendText("TODO : ajoutez le résulat de chaque opération")
+    appendText("TODO : ajoutez le résulat de chaque opération");
 }
 
 

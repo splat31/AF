@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <title>TP2 Frontend</title>
+
+    <style>
+        .ingredients {
+            display: flex;
+            gap: 30px;
+        }
+
+        .ingredient {
+            width: 200px;
+        }
+
+        .image-ingredient {
+            width: 150px;
+            height: 120px;
+            object-fit: contain;
+        }
+
+        .boutons {
+            display: flex;
+            gap: 5px;
+        }
+        .menu {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body role="document">
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+    <a class="navbar-brand" href="#">TP2 Frontend</a>
+</nav>
+
+<div class="container theme-showcase" role="main" style="width: 100%">
+    <div id="app">
+        <br/>
+
+        <!-- Les ingrédients -->
+        <div class="ingredients">
+            <div v-for="ingredient in ingredients" :key="ingredient.id" class="ingredient">
+                <img class="image-ingredient"
+                     :src="ingredient.image"
+                     :alt="ingredient.nom">
+
+
+                <p>{{ ingredient.nom }}</p>
+                <p>Quantité : {{ ingredient.quantite }}</p>
+                <!-- btn-primary   → bleu
+                btn-secondary = gris
+                btn-success   = vert
+                btn-danger    = rouge
+                btn-warning   = jaune/orange
+                btn-info      = bleu clair
+                btn-dark      = noir
+                btn-light     = clair -->
+                <div class="boutons">
+
+                    <button
+                            class="btn btn-primary"
+                            style="width: 100px;"
+                            @click="ajouterIngredient(ingredient)"
+                            :disabled="ingredient.quantite >= 3">
+                        ajouter
+                    </button>
+
+                    <button
+                            class="btn btn-danger"
+                            style="width: 100px;"
+                            @click="enleverIngredient(ingredient)"
+                            :disabled="ingredient.quantite <= 0">
+                        supprimer
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu -->
+        <div class="menu">
+            <label>
+                <input type="checkbox" v-model="menu">
+                Ajouter un menu (+3 €)
+            </label>
+
+            <div v-if="menu">
+                <p>Accompagnement :</p>
+
+                <label>
+                    <input type="radio" value="Frites" v-model="accompagnement">
+                    Frites
+                </label>
+
+                <label>
+                    <input type="radio" value="Potatoes" v-model="accompagnement">
+                    Potatoes
+                </label>
+
+                <p>Boisson :</p>
+
+                <label>
+                    <input type="radio" value="Coca" v-model="boisson">
+                    Coca
+                </label>
+
+                <label>
+                    <input type="radio" value="Eau" v-model="boisson">
+                    Verre d'eau
+                </label>
+            </div>
+        </div>
+
+        <!-- Prix -->
+        <p>Prix total : {{ prixTotal }} €</p>
+
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            menu: false,
+            accompagnement: '',
+            boisson: '',
+            ingredients: [
+                {
+                    id: 'pain',
+                    nom: 'Pain',
+                    image: 'https://halalcourses.com/1414-large_default/americana-pain-burger-avec-sesame-grande-taille.jpg',
+                    quantite: 0,
+                    prix: 1
+                },
+                {
+                    id: 'salade',
+                    nom: 'Salade',
+                    image: 'https://www.plaineduroussillon.com/wp-content/uploads/2017/06/Salade.png',
+                    quantite: 0,
+                    prix: 0.15
+                },
+                {
+                    id: 'tomate',
+                    nom: 'Tomate',
+                    image: 'https://thumbs.dreamstime.com/b/tranche-de-tomate-d-isolement-sur-le-fond-blanc-34417806.jpg',
+                    quantite: 0,
+                    prix: 0.5
+                },
+                {
+                    id: 'oignon',
+                    nom: 'Oignon',
+                    image: 'https://media.istockphoto.com/id/513920379/fr/photo/les-ampoules-%C3%A0-loignon.jpg?s=612x612&w=0&k=20&c=RCQzUlr1dwCfjBjk7IYsCUtfPnp83LSIO-VWKDvN37s=',
+                    quantite: 0,
+                    prix: 0.3
+                },
+                {
+                    id: 'steak',
+                    nom: 'Steak',
+                    image: 'https://media.istockphoto.com/id/93233291/fr/photo/hamburger-patty.jpg?s=612x612&w=0&k=20&c=32nZEi37giJZilQXj9jDHAzqhbWe6xb7QIom3WCzVws=',
+                    quantite: 0,
+                    prix: 2
+                }
+            ]
+        },
+        //methode pour bouton
+        methods: {
+            ajouterIngredient(ingredient) {
+                if (ingredient.quantite < 3) {
+                    ingredient.quantite++;
+                }
+            },
+            enleverIngredient(ingredient) {
+                if (ingredient.quantite > 0) {
+                    ingredient.quantite--;
+                }
+            }
+        },
+
+        computed: {
+            prixTotal() {
+                let total = 0;
+                for (let i of this.ingredients) {
+                    total+=i.prix*i.quantite;
+                }
+                if (this.menu) {
+                    total += 3;
+                }
+                return total;
+            }
+        }
+    });
+</script>
+</body>
+</html>
