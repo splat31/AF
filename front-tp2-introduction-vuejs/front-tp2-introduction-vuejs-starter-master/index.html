@@ -53,7 +53,7 @@
     <div id="app">
         <br/>
 
-        <!-- Les ingrédients -->
+
         <div class="ingredients">
             <div v-for="ingredient in ingredients" :key="ingredient.id" class="ingredient">
                 <img class="image-ingredient"
@@ -63,7 +63,7 @@
 
                 <p>{{ ingredient.nom }}</p>
                 <p>Quantité : {{ ingredient.quantite }}</p>
-                <!-- btn-primary   → bleu
+                <!-- btn-primary   = bleu
                 btn-secondary = gris
                 btn-success   = vert
                 btn-danger    = rouge
@@ -72,28 +72,13 @@
                 btn-dark      = noir
                 btn-light     = clair -->
                 <div class="boutons">
-
-                    <button
-                            class="btn btn-primary"
-                            style="width: 100px;"
-                            @click="ajouterIngredient(ingredient)"
-                            :disabled="ingredient.quantite >= 3">
-                        ajouter
-                    </button>
-
-                    <button
-                            class="btn btn-danger"
-                            style="width: 100px;"
-                            @click="enleverIngredient(ingredient)"
-                            :disabled="ingredient.quantite <= 0">
-                        supprimer
-                    </button>
-
+                    <button class="btn btn-primary" style="width: 100px;" @click="ajouterIngredient(ingredient)" :disabled="ingredient.quantite >= 3">ajouter</button>
+                    <button class="btn btn-danger" style="width: 100px;" @click="enleverIngredient(ingredient)" :disabled="ingredient.quantite <= 0">supprimer</button>
                 </div>
             </div>
         </div>
 
-        <!-- Menu -->
+
         <div class="menu">
             <label>
                 <input type="checkbox" v-model="menu">
@@ -127,7 +112,6 @@
             </div>
         </div>
 
-        <!-- Prix -->
         <p>Prix total : {{ prixTotal }} €</p>
 
     </div>
@@ -193,7 +177,7 @@
         },
 
         computed: {
-            prixTotal() {
+            prixTotal: function() {
                 let total = 0;
                 for (let i of this.ingredients) {
                     total+=i.prix*i.quantite;
@@ -201,7 +185,7 @@
                 if (this.menu) {
                     total += 3;
                 }
-                return total;
+                return total.toFixed(2);
             }
         }
     });
