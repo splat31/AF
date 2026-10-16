@@ -19,10 +19,10 @@ export default {
         required: true,
       },
   },
-  emits: ['messageLu'],
+  emits: ['selectMessage'],
   methods: {
     marquerCommeLu() {
-        this.$emit('messageLu', this.message.identifiant)
+        this.$emit('selectMessage', this.message.identifiant)
     }
   },
 }

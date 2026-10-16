@@ -7,13 +7,13 @@
 
       <section class="col-12 col-lg-4">
         <!-- TODO exercice 2 : afficher la liste des messages -->
-        <MessagePreview v-for="mes in messages" :key="mes.identifiant" :message="mes" @message-lu="marquerCommeLu"/>
+        <MessagePreview v-for="mes in messages" :key="mes.identifiant" :message="mes" @selectMessage="marquerCommeLu"/>
         <p>Total : {{ Total }} </p>
       </section>
 
       <section class="col-12 col-lg-4">
         <!-- TODO exercice 3 : afficher le message sélectionné -->
-        TODO ex 3
+        <MessageDetail v-if="messageSelectionne" :message="messageSelectionne"/>
       </section>
     </div>
   </main>
@@ -22,12 +22,14 @@
 <script>
 import NewMessage from './components/NewMessage.vue'
 import MessagePreview from './components/MessagePreview.vue'
+import MessageDetail from './components/MessageDetail.vue'
 
 export default {
   name: 'App',
   components: {
     NewMessage,
     MessagePreview,
+    MessageDetail,
   },
   data() {
     return {
@@ -55,6 +57,11 @@ export default {
 
         if (message) {
           message.lu = true
+          if (this.selected === identifiant) {
+            this.selected=null //pour pouvoir fermer le message
+          } else {
+            this.selected = identifiant
+          }
         }
       },
   },
@@ -66,8 +73,14 @@ export default {
           total+=1;
       }
       return total.toFixed(0);
+    },
+    messageSelectionne() {
+      return this.messages.find(
+              mes => mes.identifiant === this.selected
+      )
     }
-  }
+  },
+
 }
 </script>
 
