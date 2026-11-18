@@ -1,13 +1,13 @@
 # TP 4 - Cypress
 
-### LAST NAME : DOE
-### First name : John
+### LAST NAME : Nguyen
+### First name : Bastien
 ### TP group : 
 - [ ] TPA41
 - [ ] TPA42
 - [ ] TPA51
-- [ ] TPA52
-- [x] Not selected
+- [x] TPA52
+- [ ] Not selected
 
 
 
